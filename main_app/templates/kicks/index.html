@@ -5,16 +5,18 @@
 
 {% for kick in kicks %}
   <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ kick.name }}</span>
-      <p>Brand: {{ kick.brand }}</p>
-      <p>Colorway: {{ kick.colorway }}</p>
-      {% if kick.releasedate %}
-        <p>Release Date: {{ kick.releasedate }}</p>
-      {% else %}
-        <p>Release Date: Unknown</p>
-      {% endif %}
-    </div>
+    <a href="{% url 'detail' kick.id %}">
+      <div class="card-content">
+        <span class="card-title">{{ kick.name }}</span>
+        <p>Brand: {{ kick.brand }}</p>
+        <p>Colorway: {{ kick.colorway }}</p>
+        {% if kick.releasedate %}
+          <p>Release Date: {{ kick.releasedate }}</p>
+        {% else %}
+          <p>Release Date: Unknown</p>
+        {% endif %}
+      </div>
+    </a>
   </div>
 {% endfor %}
 

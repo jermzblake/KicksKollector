@@ -25,3 +25,7 @@ def about(request):
 def kicks_index(request):
     kicks = Kick.objects.all()
     return render(request, 'kicks/index.html', { 'kicks': kicks})
+
+def kicks_detail(request, kick_id):
+    kick = Kick.objects.get(id=kick_id)
+    return render(request, 'kicks/detail.html', {'kick': kick})

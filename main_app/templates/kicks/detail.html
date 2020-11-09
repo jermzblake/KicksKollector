@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Kicks Detail</h1>
+
+<div class="card">
+    <div class="card-content">
+      <span class="card-title">{{ kick.name }}</span>
+      <p>Brand: {{ kick.brand }}</p>
+      <p>ColorWay: {{ kick.colorway }}</p>
+      {% if kick.releasedate %}
+          <p>Release Date: {{ kick.releasedate }}</p>
+        {% else %}
+          <p>Release Date: Unknown</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
