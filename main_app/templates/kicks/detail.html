@@ -27,6 +27,12 @@
       {{ viewing_form.as_p }}
       <input type="submit" class="btn" value="Add Viewing">
     </form>
+    <br>
+    {% if kick.viewed_for_today %}
+      <div class="card-panel teal-text center-align">{{kick.name}} is all booked up for today</div>
+    {% else %}
+      <div class="card-panel red-text center-align">{{kick.name}} is available for a viewing</div>
+    {% endif %}
     <table class="striped">
       <thead>
         <tr><th>Date</th><th>Time Slot</th></tr>

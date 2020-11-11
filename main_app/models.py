@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 TIMES = (
     ('M', 'Morning'),
@@ -19,6 +20,9 @@ class Kick(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'kick_id': self.id})
+
+    def viewed_for_today(self):
+        return self.viewing_set.filter(date=date.today()).count() >= len(TIMES)
 
 class Viewing(models.Model):
     date = models.DateField('viewing date')
