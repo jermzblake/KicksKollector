@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Kick
+from .forms import ViewingForm
 
 # class Kick:  # Note that parens are optional if not inheriting from another class
 #   def __init__(self, name, brand, colorway, releasedate):
@@ -28,4 +30,21 @@ def kicks_index(request):
 
 def kicks_detail(request, kick_id):
     kick = Kick.objects.get(id=kick_id)
-    return render(request, 'kicks/detail.html', {'kick': kick})
+    # instantiate ViewingForm to be rendered in the template
+    viewing_form = ViewingForm()
+    return render(request, 'kicks/detail.html', {
+        #include the kicks and the viewing_form in the context
+        'kick': kick, 'viewing_form': viewing_form})
+
+class KickCreate(CreateView):
+    model = Kick
+    fields = '__all__'
+
+class KickUpdate(UpdateView):
+    model = Kick
+    fields = ['colorway', 'releasedate']
+
+class KickDelete(DeleteView):
+    model = Kick
+    success_url = '/kicks/'
+
