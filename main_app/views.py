@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Kick
@@ -35,6 +35,19 @@ def kicks_detail(request, kick_id):
     return render(request, 'kicks/detail.html', {
         #include the kicks and the viewing_form in the context
         'kick': kick, 'viewing_form': viewing_form})
+
+def add_viewing(request, kick_id):
+    # create a ModelForm instance using the data in request.POST
+    form = ViewingForm(request.POST)
+    # validate the form
+    if form.is_valid():
+        # don't save the form to the db until it
+        # has the cat_id assigned
+        new_viewing = form.save(commit=False)
+        new_viewing.kick_id = kick_id
+        new_viewing.save()
+    return redirect('detail', kick_id=kick_id)
+
 
 class KickCreate(CreateView):
     model = Kick
