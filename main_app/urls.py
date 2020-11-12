@@ -11,5 +11,5 @@ urlpatterns = [
     path('kicks/<int:pk>/delete/', views.KickDelete.as_view(), name='kicks_delete'),
     path('kicks/int:<int:kick_id>/add_viewing', views.add_viewing, name='add_viewing'),
     path('kicks/<int:kick_id>/assoc_lace/<int:lace_id>/', views.assoc_lace, name='assoc_lace'),
-    
+    path('kicks/<int:kick_id>/disassoc_lace/<int:lace_id>/', views.disassoc_lace, name='disassoc_lace')
 ]

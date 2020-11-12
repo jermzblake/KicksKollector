@@ -60,6 +60,12 @@
               {{ lace.style }} <span style="color: {{ lace.color }}">{{ lace.color }}</span>
             </span>
           </div>
+          <div class="card-action">
+            <form action="{% url 'disassoc_lace' kick.id lace.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
         </div>
       {% endfor %}
     {% else %}

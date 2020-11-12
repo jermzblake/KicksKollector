@@ -58,6 +58,10 @@ def assoc_lace(request, kick_id, lace_id):
     Kick.objects.get(id=kick_id).laces.add(lace_id)
     return redirect('detail', kick_id=kick_id)
 
+def disassoc_lace(request, kick_id, lace_id):
+    Kick.objects.get(id=kick_id).laces.remove(lace_id)
+    return redirect('detail', kick_id=kick_id)
+
 
 class KickCreate(CreateView):
     model = Kick
