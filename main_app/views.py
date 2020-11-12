@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Kick
+from .models import Kick, Lace
 from .forms import ViewingForm
 
 # class Kick:  # Note that parens are optional if not inheriting from another class
@@ -30,11 +30,16 @@ def kicks_index(request):
 
 def kicks_detail(request, kick_id):
     kick = Kick.objects.get(id=kick_id)
+    # Get the toys the cat doesn't have
+    laces_kick_doesnt_have = Lace.objects.exclude(id__in = kick.laces.all().values_list('id'))
     # instantiate ViewingForm to be rendered in the template
     viewing_form = ViewingForm()
     return render(request, 'kicks/detail.html', {
         #include the kicks and the viewing_form in the context
-        'kick': kick, 'viewing_form': viewing_form})
+        'kick': kick, 'viewing_form': viewing_form,
+        # Add the laces to be displayed
+        'laces': laces_kick_doesnt_have
+        })
 
 def add_viewing(request, kick_id):
     # create a ModelForm instance using the data in request.POST
@@ -46,6 +51,11 @@ def add_viewing(request, kick_id):
         new_viewing = form.save(commit=False)
         new_viewing.kick_id = kick_id
         new_viewing.save()
+    return redirect('detail', kick_id=kick_id)
+
+
+def assoc_lace(request, kick_id, lace_id):
+    Kick.objects.get(id=kick_id).laces.add(lace_id)
     return redirect('detail', kick_id=kick_id)
 
 

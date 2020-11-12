@@ -48,6 +48,48 @@
     </table>
   </div>
 </div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ kick.name }}'s Laces</h3>
+    {% if kick.laces.count %}
+      {% for lace in kick.laces.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              {{ lace.style }} <span style="color: {{ lace.color }}">{{ lace.color }}</span>
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No Laces :(</h5>
+    {% endif %}
+  </div>
+  <!-- Available laces will come after this line -->
+  <div class="col s6">
+    <h3>Available Laces</h3>
+    {% if laces.count %}
+      {% for lace in laces.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              {{ lace.style }} <span style="color: {{ lace.color }}">{{ lace.color }}</span> 
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_lace' kick.id lace.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{kick.name}} Already Has All Laces Available</h5>
+    {% endif %}
+  </div>
+</div>
 
 <script>
   var dateEl = document.getElementById('id_date');
