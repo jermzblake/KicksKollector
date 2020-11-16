@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 TIMES = (
     ('M', 'Morning'),
@@ -27,6 +28,8 @@ class Kick(models.Model):
     releasedate = models.CharField(max_length=100)
     # Add a M:M relationship
     laces = models.ManyToManyField(Lace)
+    # Add the foreign key linking to a user instance
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name 
