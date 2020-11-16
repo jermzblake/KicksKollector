@@ -12,8 +12,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-
-
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -35,7 +33,7 @@ def signup(request):
 
 class KickCreate(LoginRequiredMixin, CreateView):
     model = Kick
-    fields = '__all__'
+    fields = ['name', 'brand', 'colorway', 'releasedate']
 
     # This inherited method is called when a
     # valid kicks form is being submitted
