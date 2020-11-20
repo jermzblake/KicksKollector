@@ -60,7 +60,7 @@ def about(request):
 @login_required
 def kicks_index(request):
     kicks = Kick.objects.filter(user=request.user)
-     # You could also retrieve the logged in user's cats like this
+     # You could also retrieve the logged in user's kicks like this
     # kicks = request.user.kick_set.all()
     return render(request, 'kicks/index.html', { 'kicks': kicks})
 
@@ -85,7 +85,7 @@ def add_viewing(request, kick_id):
     # validate the form
     if form.is_valid():
         # don't save the form to the db until it
-        # has the cat_id assigned
+        # has the kick_id assigned
         new_viewing = form.save(commit=False)
         new_viewing.kick_id = kick_id
         new_viewing.save()
